@@ -5,5 +5,6 @@ struct NodePTR{
 };
 typedef struct NodePTR Node;
 
+void destroyList(Node* ptr);
 Node* createCat(char* cat);
 int main(int argc, char** argv);
