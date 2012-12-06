@@ -8,5 +8,5 @@ struct ClientPTR{
 typedef struct ClientPTR Client;
 
 int numLines(FILE *clientFile);
-void createClients(FILE *cf, Client *clients[]);
+void createClients(FILE *cf, Client clients[]);
 int main(int argc, char** argv);

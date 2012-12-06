@@ -16,7 +16,7 @@ int main(int argc, char** argv){
         return 1;
     }
     int numClients = numLines(clientFile);
-    Client *clients[numClients];
+    Client *clients = (Client *)malloc(sizeof(Client)*numClients);
     fclose(clientFile);
     clientFile = fopen(argv[1], "r");
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv){
 }
 
     createClients(clientFile, clients);
-
+    printf("%d\n", clients[1].id);
 
     fclose(clientFile);
     fclose(orderFile);
@@ -61,7 +61,7 @@ int numLines(FILE *clientFile){
     return lines;
 }
 
-void createClients(FILE *cf, Client *clients[]){
+void createClients(FILE *cf, Client *clients){
 
     char temp[200];
     while(fgets(temp, 200, cf)!=NULL){
@@ -72,9 +72,11 @@ void createClients(FILE *cf, Client *clients[]){
         temp[strlen(temp)-1]='\0';
         token = strtok(temp, "|");
         while(token!=NULL){
-            printf("%s\n", token);
-            if(item==1)
-                cl->name = token;
+            if(item==1){
+                char* tk = (char*)malloc(sizeof(char)*strlen(token));
+                tk = strcpy(tk, token);
+                cl->name = tk;
+            }
             //memmove(temp, temp+2, strlen(temp));
             if(item == 2)
                 cl->id = atoi(token);
@@ -83,7 +85,8 @@ void createClients(FILE *cf, Client *clients[]){
             item++;
             token = strtok(NULL, "|");
         }
-        clients[(cl->id)-1] = cl;
+        clients[(cl->id)-1] = *cl;
+        printf("%s", clients[0].name);
     }
 
     return;
