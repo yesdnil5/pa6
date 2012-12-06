@@ -41,11 +41,14 @@ int main(int argc, char** argv){
             strcat(cat, space);
         }
         memmove(cat, cat+2, strlen(cat));
-}
+    }
 
     createClients(clientFile, clients);
     printf("%d\n", clients[1].id);
-
+    
+    if(catFile!=NULL)
+        free(catFile);
+    destroyClient(clients, numClients);
     fclose(clientFile);
     fclose(orderFile);
     return 0;
@@ -87,7 +90,17 @@ void createClients(FILE *cf, Client *clients){
         }
         clients[(cl->id)-1] = *cl;
         printf("%s", clients[0].name);
+        free(cl);
     }
 
+    return;
+}
+
+void destroyClient(Client clients[], int num){
+    int i;
+    for(i = 0; i<num; i++){
+        free(clients[i].name);
+        free(&clients[i]);
+    }
     return;
 }
