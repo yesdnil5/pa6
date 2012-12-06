@@ -26,28 +26,10 @@ int main(int argc, char** argv){
         return 1;
     }
 
-    FILE *catFile = fopen(argv[3], "r");
-    char *catt;
-    if(catFile == NULL)
-        catt = argv[3];
-    else{
-        char cat[2000];
-        char temp[100];
-        char* space = " \0";
-        int line = 0;
-            while(fgets(temp, 100, catFile)!=NULL){
-            temp[strlen(temp)-1]='\0';
-            strcat(cat, temp);
-            strcat(cat, space);
-        }
-        memmove(cat, cat+2, strlen(cat));
-    }
-
     createClients(clientFile, clients);
-    printf("%d\n", clients[1].id);
     
-    if(catFile!=NULL)
-        free(catFile);
+    produceThread(argv[3], orderFile, clients);
+
     destroyClient(clients, numClients);
     fclose(clientFile);
     fclose(orderFile);
