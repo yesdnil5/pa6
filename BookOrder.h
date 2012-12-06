@@ -1,10 +1,12 @@
 
-struct NodePTR{
-    char* category;
-    struct NodePTR *next;
+struct ClientPTR{
+    char *name;
+    int id;
+    float price;
 };
-typedef struct NodePTR Node;
 
-void destroyList(Node* ptr);
-Node* createCat(char* cat);
+typedef struct ClientPTR Client;
+
+int numLines(FILE *clientFile);
+void createClients(FILE *cf, Client *clients[]);
 int main(int argc, char** argv);
