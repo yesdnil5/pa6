@@ -28,3 +28,10 @@ void createCategories(FILE *catFile, char* catString){
     return;
 }
 
+void scanOrders(FILE *orderFile){
+    char temp[1000];
+    while(fgets(temp, 1000, orderFile)!=NULL){
+        char token = strtok(temp, "|");
+        
+    }
+}
