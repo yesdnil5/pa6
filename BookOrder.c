@@ -15,6 +15,7 @@ int main(int argc, char** argv){
         printf("Data Base file could not be opened.");
         return 1;
     }
+    int i = 0;
     int numClients = numLines(clientFile);
     Client *clients = (Client *)malloc(sizeof(Client)*numClients);
     fclose(clientFile);
@@ -28,7 +29,7 @@ int main(int argc, char** argv){
 
     createClients(clientFile, clients);
     
-    produceThread(argv[3], orderFile, clients);
+    //produceThread(argv[3], orderFile, clients);
 
     destroyClient(clients, numClients);
     fclose(clientFile);
@@ -62,16 +63,16 @@ void createClients(FILE *cf, Client *clients){
                 tk = strcpy(tk, token);
                 cl->name = tk;
             }
-            //memmove(temp, temp+2, strlen(temp));
             if(item == 2)
                 cl->id = atoi(token);
-            if(item == 3)
-                cl->price = atof(token);
+            if(item == 3){
+                float n = atof(token);
+                cl->price = n;
+            }
             item++;
             token = strtok(NULL, "|");
         }
         clients[(cl->id)-1] = *cl;
-        printf("%s", clients[0].name);
         free(cl);
     }
 
@@ -82,7 +83,8 @@ void destroyClient(Client clients[], int num){
     int i;
     for(i = 0; i<num; i++){
         free(clients[i].name);
-        free(&clients[i]);
     }
+    free(clients);
+
     return;
 }
