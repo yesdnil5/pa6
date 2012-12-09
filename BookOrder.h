@@ -3,11 +3,13 @@ struct ClientPTR{
     char *name;
     int id;
     float price;
+    struct ClientPTR *nextSucc;
+    struct ClientPTR *nextFail;
 };
 
-typedef struct ClientPTR Client;
+typedef struct ClientPTR Node;
 
-void destroyClient(Client clients[], int num);
+void destroyClient(Node clients[], int num);
 int numLines(FILE *clientFile);
-void createClients(FILE *cf, Client clients[]);
+void createClients(FILE *cf, Node clients[]);
 int main(int argc, char** argv);

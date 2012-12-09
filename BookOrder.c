@@ -17,7 +17,7 @@ int main(int argc, char** argv){
     }
     int i = 0;
     int numClients = numLines(clientFile);
-    Client *clients = (Client *)malloc(sizeof(Client)*numClients);
+    Node *clients = (Node *)malloc(sizeof(Node)*numClients);
     fclose(clientFile);
     clientFile = fopen(argv[1], "r");
 
@@ -47,14 +47,14 @@ int numLines(FILE *clientFile){
     return lines;
 }
 
-void createClients(FILE *cf, Client *clients){
+void createClients(FILE *cf, Node *clients){
 
     char temp[200];
     while(fgets(temp, 200, cf)!=NULL){
         char *token;
         int item = 1;
         int ids;
-        Client *cl = (Client *)malloc(sizeof(Client));
+        Node *cl = (Node *)malloc(sizeof(Node));
         temp[strlen(temp)-1]='\0';
         token = strtok(temp, "|");
         while(token!=NULL){
@@ -68,6 +68,8 @@ void createClients(FILE *cf, Client *clients){
             if(item == 3){
                 float n = atof(token);
                 cl->price = n;
+                cl->nextSucc = NULL;
+                cl->nextFail = NULL;
             }
             item++;
             token = strtok(NULL, "|");
@@ -79,7 +81,7 @@ void createClients(FILE *cf, Client *clients){
     return;
 }
 
-void destroyClient(Client clients[], int num){
+void destroyClient(Node clients[], int num){
     int i;
     for(i = 0; i<num; i++){
         free(clients[i].name);
