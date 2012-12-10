@@ -39,11 +39,11 @@ void scanOrders(FILE *orderFile, Node clients[]){
         index = atoi(token);
         index = index-1;
         //this is where the consumer threads will be called
-        orders(clients[index], temp);
+        orders(&clients[index], temp);
     }
 }
 
-void orders(Node client, char* book){
+void orders(Node *client, char* book){
     char *token;
     int info = 0;
     float price;

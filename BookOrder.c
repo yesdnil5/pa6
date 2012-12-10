@@ -28,9 +28,10 @@ int main(int argc, char** argv){
     }
 
     createClients(clientFile, clients);
-    
+    printf("hello");
     produceThread(argv[3], orderFile, clients);
-
+    printOrders(clients, numClients);
+    
     destroyClient(clients, numClients);
     fclose(clientFile);
     fclose(orderFile);
@@ -89,4 +90,18 @@ void destroyClient(Node clients[], int num){
     free(clients);
 
     return;
+}
+
+void printOrders(Node clients[], int num){
+    int i;
+    for(i=0; i<num; i++){
+        Node *ptr = &clients[i];
+        printf("Customer name: %s\n", ptr->name);
+        while(ptr->nextSucc!=NULL){
+            ptr = ptr->nextSucc;
+            printf("%s | %f | %f\n", ptr->name, ptr->price, ptr->total);
+        }
+    }
+    return;
+
 }
