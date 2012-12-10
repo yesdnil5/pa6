@@ -3,6 +3,7 @@ struct ClientPTR{
     char *name;
     int id;
     float price;
+    float total;
     struct ClientPTR *nextSucc;
     struct ClientPTR *nextFail;
 };

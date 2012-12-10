@@ -29,7 +29,7 @@ int main(int argc, char** argv){
 
     createClients(clientFile, clients);
     
-    //produceThread(argv[3], orderFile, clients);
+    produceThread(argv[3], orderFile, clients);
 
     destroyClient(clients, numClients);
     fclose(clientFile);
@@ -67,7 +67,7 @@ void createClients(FILE *cf, Node *clients){
                 cl->id = atoi(token);
             if(item == 3){
                 float n = atof(token);
-                cl->price = n;
+                cl->total = n;
                 cl->nextSucc = NULL;
                 cl->nextFail = NULL;
             }
